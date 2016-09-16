@@ -1,0 +1,70 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	
+	<style>
+	.done-true {
+		color: #green;
+		text-decoration: line-through;
+		font-weight: bold;
+		
+	}
+		
+	body {
+	font-size: 14px;
+	color: #333333;
+	width: 520px;
+	margin: 0 auto;
+	}
+	p {
+	display: inline;
+	}
+	.div1 {
+	 margin-bottom: 15px;
+	}
+	</style>
+   
+	
+</head>
+<body ng-app="myApp" ng-controller="todoCtrl">
+<h2>My Todo List</h2>
+
+<form  class="pure-form pure-form-aligned" ng-submit="todoAdd()">
+    <input type="text" ng-model="todoInput" placeholder="Add New" required="true">
+    <input type="submit" value="Add New" class="pure-button pure-button-primary">
+</form>
+<br />
+<div class="div1" ng-repeat="x in todoList" >
+    <input type="checkbox" ng-model="x.done" class="pure-button"> <span class="done-{{x.done}}" ng-bind="x.todoText"></span>
+    <p><button ng-click="remove()" class="button-small pure-button">Remove</button></p>
+</div>
+<div>
+	 <input type="button" value="ALL" class="pure-button">
+	 <input type="button" value="DONE" class="pure-button" >
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('todoCtrl', function($scope) {
+        $scope.todoList = [];
+
+        $scope.todoAdd = function() {
+			
+            $scope.todoList.push({todoText:$scope.todoInput, done:false});
+            $scope.todoInput = "";
+        };
+
+        $scope.remove = function() {
+            $scope.todoList.splice(this.$index, 1);
+       
+        };
+
+    });
+</script>
+ 
+</body>
+</html>
